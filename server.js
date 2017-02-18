@@ -25,23 +25,26 @@ app.use(stylus.middleware({
 }));
 app.use(express.static(__dirname + '/public'));
 
+
 if (env === 'development') {
-	mongoose.connect('mongodb://localhost/Deep Scan');
+	mongoose.connect('mongodb://localhost/deepscan');
 } else {
-	mongoose.connect('mongodb://<dbuser>:<dbpassword>@ds153719.mlab.com:53719/deepscan');
+	mongoose.connect('mongodb://admin:password@ds153719.mlab.com:53719/deepscan');
 }
+
 var db = mongoose.connection;
 db.on('error', console.error.bind(console, 'connection error...'));
 db.once('open', function callback() {
 	console.log('deepscan db opened');
+	console.log('Environment: ' + env);
 });
 var messageSchema = mongoose.Schema({
 	message: String
 });
 var Message = mongoose.model('Message', messageSchema);
 var mongoMessage;
-Message.findOne().exec(function (err, messageDoc) {
-	mongoMessage = messageDoc.message;
+Message.find().exec(function (err, messageDoc) {
+	mongoMessage = messageDoc[0].message;
 });
 
 app.get('/partials/:partialPath', function (req, res) {
