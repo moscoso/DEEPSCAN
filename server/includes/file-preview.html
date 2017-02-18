@@ -2,14 +2,14 @@
 	<div class="file-field input-field">
 		<div class="btn">
 			<span>File</span>
-			<input type="file" accept="image/*" onchange="loadFile(event)" placeholder="Currently supports image files">
+			<input type="file" accept="image/*" multiple onchange="loadFile(event)" placeholder="Currently supports image files">
 		</div>
 		<div class="file-path-wrapper">
 			<input class="file-path validate" type="text">
 		</div>
 	</div>
 </form>
-<img id="file-preview" />
+<img id="file-preview" style="max-width:100%;" />
 <script>
 	var loadFile = function (event) {
 		var output = document.getElementById('file-preview');

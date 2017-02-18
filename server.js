@@ -63,6 +63,10 @@ app.get('/api/endpoint', function (req, res) {
 	});
 });
 
+app.post('/api/scan', function (req, res) {
+
+});
+
 var port = process.env.PORT || 3030;
 app.listen(port);
 console.log('Listening on port ' + port + '...');
