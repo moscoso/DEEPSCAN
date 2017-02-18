@@ -51,9 +51,15 @@ app.get('/partials/:partialPath', function (req, res) {
 	res.render('partials/' + req.params.partialPath);
 });
 
-app.get('*', function (req, res) {
+app.get('/', function (req, res) {
 	res.render('index', {
 		mongoMessage: mongoMessage
+	});
+});
+
+app.get('/api/endpoint', function (req, res) {
+	res.json({
+		data: "this is a test api endpoint"
 	});
 });
 
