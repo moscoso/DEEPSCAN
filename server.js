@@ -2,7 +2,8 @@ var express = require('express'),
 	stylus = require('stylus'),
 	logger = require('morgan'),
 	bodyParser = require('body-parser'),
-	mongoose = require('mongoose');
+	mongoose = require('mongoose'),
+	PythonShell = require('python-shell');
 
 var env = process.env.NODE_ENV = process.env.NODE_ENV || 'development';
 
@@ -58,8 +59,12 @@ app.get('/', function (req, res) {
 });
 
 app.get('/api/endpoint', function (req, res) {
-	res.json({
-		data: "this is a test api endpoint"
+	var pyshell = new PythonShell('/python/my_script.py');
+	pyshell.send("69");
+	pyshell.on('message', function (message) {
+		res.json({
+			data: message
+		});
 	});
 });
 
