@@ -1,2 +1,10 @@
-h1 This is a Partial
-h2 {{ myVar }}
+h1 {{ title }}
+h2= mongoMessage
+  h5 {{description}}
+  form(action='#')
+  .file-field.input-field
+    .btn
+      span File
+      input(type='file')
+    .file-path-wrapper
+      input.file-path.validate(type='text')
