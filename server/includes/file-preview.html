@@ -1,0 +1,18 @@
+<form action="#">
+	<div class="file-field input-field">
+		<div class="btn">
+			<span>File</span>
+			<input type="file" accept="image/*" onchange="loadFile(event)" placeholder="Currently supports image files">
+		</div>
+		<div class="file-path-wrapper">
+			<input class="file-path validate" type="text">
+		</div>
+	</div>
+</form>
+<img id="file-preview" />
+<script>
+	var loadFile = function (event) {
+		var output = document.getElementById('file-preview');
+		output.src = URL.createObjectURL(event.target.files[0]);
+	};
+</script>

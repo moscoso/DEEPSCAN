@@ -2,9 +2,4 @@ h1 {{ title }}
 h2= mongoMessage
   h5 {{description}}
   form(action='#')
-  .file-field.input-field
-    .btn
-      span File
-      input(type='file')
-    .file-path-wrapper
-      input.file-path.validate(type='text')
+   include ../../includes/file-preview.html
