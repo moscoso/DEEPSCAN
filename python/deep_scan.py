@@ -258,7 +258,7 @@ first_name, last_name = [], []
 for i in range(0, len(head_horiz_lines) - 1):
     for j in range(1, len(head_vert_lines) - 1):
         side_len = math.ceil(head_vert_lines[j + 1] - head_vert_lines[j])
-        region = paper[head_horiz_lines[i]: head_horiz_lines[i] + side_len, head_vert_lines[j]: head_vert_lines[j] + side_len]
+        region = paper[int(head_horiz_lines[i]): int(head_horiz_lines[i] + side_len), int(head_vert_lines[j]): int(head_vert_lines[j] + side_len)]
         res = center(preprocess_image(region, thickness=8))
         is_zero = True
         for k in range(res.shape[0]):
@@ -303,7 +303,7 @@ answers = []
 for i in range(1, len(body_vert_lines), 2):
     for j in range(0, len(body_horiz_lines) - 1):
         side_len = 68
-        region = paper[body_horiz_lines[j]: body_horiz_lines[j] + side_len, body_vert_lines[i]: body_vert_lines[i] + side_len]
+        region = paper[int(body_horiz_lines[j]): int(body_horiz_lines[j] + side_len), int(body_vert_lines[i]): int(body_vert_lines[i] + side_len)]
         res = center(preprocess_image(region, thickness=8))
         is_zero = True
         for k in range(res.shape[0]):
