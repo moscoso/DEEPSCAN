@@ -3,7 +3,10 @@ var express = require('express'),
 	logger = require('morgan'),
 	bodyParser = require('body-parser'),
 	mongoose = require('mongoose'),
-	PythonShell = require('python-shell');
+	PythonShell = require('python-shell'),
+	path = require('path'),
+	formidable = require('formidable'),
+	fs = require('fs');
 
 var env = process.env.NODE_ENV = process.env.NODE_ENV || 'development';
 
@@ -59,7 +62,7 @@ app.get('/', function (req, res) {
 });
 
 app.get('/api/endpoint', function (req, res) {
-	var pyshell = new PythonShell('/python/my_script.py');
+	var pyshell = new PythonShell('/python/test.py');
 	pyshell.send("69");
 	pyshell.on('message', function (message) {
 		res.json({
@@ -68,8 +71,43 @@ app.get('/api/endpoint', function (req, res) {
 	});
 });
 
-app.post('/api/scan', function (req, res) {
+app.post('/api/upload', function (req, res) {
 
+	// create an incoming form object
+	var form = new formidable.IncomingForm();
+
+	// specify that we want to allow the user to upload multiple files in a single request
+	form.multiples = true;
+
+	// store all uploads in the /uploads directory
+	form.uploadDir = path.join(__dirname, '/python');
+
+	// every time a file has been uploaded successfully,
+	// rename it to it's orignal name
+	form.on('file', function (field, file) {
+		fs.rename(file.path, path.join(form.uploadDir, 'input.png'));
+	});
+
+	// log any errors that occur
+	form.on('error', function (err) {
+		console.log('An error has occured: \n' + err);
+	});
+
+	// once all the files have been uploaded, send a response to the client
+	form.on('end', function () {
+		res.end('success');
+	});
+
+	// parse the incoming request containing the form data
+	form.parse(req);
+});
+
+app.get('/api/scantest', function (req, res) {
+	var pyshell = new PythonShell('/python/deep_scan.py');
+	pyshell.on('message', function (message) {
+		//OUTPUT deep_scan.py
+		console.log(message);
+	});
 });
 
 var port = process.env.PORT || 3030;
