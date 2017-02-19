@@ -12,12 +12,7 @@ import json
 import base64
 import sys
 
-img_base64 = sys.stdin.readline()
-
-with open('imageToSave.png', "wb") as fh:
-    fh.write(base64.decodestring(img_base64))
-
-paper = cv2.imread('imageToSave.png')
+paper = cv2.imread('input.png')
 
 def abs_thresh(img, orient='x', thresh=(0, 255), ksize=3):
     gray = cv2.cvtColor(img, cv2.COLOR_RGB2GRAY)
