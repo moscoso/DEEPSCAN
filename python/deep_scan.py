@@ -11,8 +11,10 @@ from scipy.misc import imresize
 import json
 import base64
 import sys
+import os
 
-paper = cv2.imread('input.png')
+filepath = os.path.dirname(os.path.realpath(__file__))
+paper = cv2.imread(filepath + '/input.png')
 
 def abs_thresh(img, orient='x', thresh=(0, 255), ksize=3):
     gray = cv2.cvtColor(img, cv2.COLOR_RGB2GRAY)
@@ -285,7 +287,7 @@ for i in range(len(last_name)):
 first_name, last_name = np.array(first_name), np.array(last_name)
 first_name, last_name = reshape_images(first_name), reshape_images(last_name)
 
-model = load_model('c_model.h5')
+model = load_model(filepath + '/c_model.h5')
 
 first_pred = model.predict(first_name)
 last_pred = model.predict(last_name)

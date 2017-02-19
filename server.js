@@ -61,15 +61,15 @@ app.get('/', function (req, res) {
 	});
 });
 
-app.get('/api/endpoint', function (req, res) {
-	var pyshell = new PythonShell('/python/test.py');
-	pyshell.send("69");
-	pyshell.on('message', function (message) {
-		res.json({
-			data: message
-		});
-	});
-});
+//app.get('/api/endpoint', function (req, res) {
+//	var pyshell = new PythonShell('/python/test.py');
+//	pyshell.send("69");
+//	pyshell.on('message', function (message) {
+//		res.json({
+//			data: message
+//		});
+//	});
+//});
 
 app.post('/api/upload', function (req, res) {
 
@@ -95,7 +95,12 @@ app.post('/api/upload', function (req, res) {
 
 	// once all the files have been uploaded, send a response to the client
 	form.on('end', function () {
-		res.end('success');
+		var pyshell = new PythonShell('/python/deep_scan.py');
+		pyshell.on('message', function (message) {
+			//OUTPUT deep_scan.py
+			console.log(message);
+			res.send(message);
+		    });
 	});
 
 	// parse the incoming request containing the form data
