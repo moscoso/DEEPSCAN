@@ -18,6 +18,7 @@ angular.module('app').controller('mainCtrl', function ($scope, $http) {
 	$scope.testAPIdummy = "Getting /api/hello";
 	$http.get("/api/endpoint")
 		.then(function (response) {
-			$scope.testResponse = response.data;
+			$scope.testResponse = 'API online'; //response.data;
+			console.log(response.data);
 		});
 });
